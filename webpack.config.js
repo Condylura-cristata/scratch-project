@@ -10,6 +10,7 @@ module.exports = {
     },
     compress: true,
     port: 8080,
+    historyApiFallback: true,
   },
   entry: "./client/index.js",
   output: {
@@ -36,7 +37,17 @@ module.exports = {
       {
         test: /scss$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader',
+        {
+          loader: 'postcss-loader',
+          options: {
+            postcssOptions: {
+              plugins: () => [
+                require('autoprefixer')
+              ]
+            }
+          }
+        }],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
